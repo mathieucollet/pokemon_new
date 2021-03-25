@@ -10,29 +10,6 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-Widget projectWidget() {
-  return FutureBuilder(
-    builder: (context, AsyncSnapshot<List<SetModel>> projectSnap) {
-      if (projectSnap.hasData == false) {
-        //print('project snapshot data is: ${projectSnap.data}');
-        return Container();
-      }
-      return ListView.builder(
-        itemCount: projectSnap.data.length,
-        itemBuilder: (context, index) {
-          SetModel model = projectSnap.data[index];
-          return Column(
-            children: <Widget>[
-              // Widget to display the list of project
-            ],
-          );
-        },
-      );
-    },
-    future: getSets(),
-  );
-}
-
 class _HomePageState extends State<HomePage> {
   PokemonModel _pokemonModel;
 
@@ -55,7 +32,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: Drawer(
-        child: projectWidget(),
+        child: _drawerBuilder(),
       ),
       body: Center(
         child: PokemonListView(),
@@ -77,5 +54,39 @@ class _HomePageState extends State<HomePage> {
         ],
       );
     }
+  }
+
+  Widget _drawerBuilder() {
+    return FutureBuilder(
+      builder: (context, AsyncSnapshot<List<SetModel>> projectSnap) {
+        if (projectSnap.hasData == false) {
+          //print('project snapshot data is: ${projectSnap.data}');
+          return Container();
+        }
+        return ListView.builder(
+          itemCount: projectSnap.data.length,
+          itemBuilder: (context, index) {
+            SetModel model = projectSnap.data[index];
+            return ListTile(
+              title: Text(model.name),
+              leading: CachedNetworkImage(
+                imageUrl: model.logo,
+                width: 40.0,
+              ),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PokemonListView.set(model.id),
+                  ),
+                );
+              },
+            );
+          },
+        );
+      },
+      future: getSets(),
+    );
   }
 }

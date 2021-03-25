@@ -4,11 +4,17 @@ import 'package:pokemon_new/api/pokemon_api.dart';
 import 'package:pokemon_new/model/pokemon_model.dart';
 
 class PokemonListView extends StatelessWidget {
+  String _setId;
+
+  PokemonListView();
+
+  PokemonListView.set(this._setId);
+
   @override
   Widget build(BuildContext context) {
     Future<List> list = getSets();
     return FutureBuilder<List<PokemonModel>>(
-      future: getPokemons(),
+      future: _setId != null ? getPokemons(_setId) : getPokemons(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<PokemonModel> data = snapshot.data;
