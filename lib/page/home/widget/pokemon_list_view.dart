@@ -32,14 +32,15 @@ class PokemonListView extends StatelessWidget {
         shrinkWrap: true,
         itemCount: data.length,
         itemBuilder: (context, index) {
-          return _tile(data[index].name, data[index].smallImage);
+          return _tile(
+              data[index].name, data[index].number, data[index].smallImage);
         });
   }
 
-  ListTile _tile(String title, String imageUrl) => ListTile(
+  ListTile _tile(String title, String number, String imageUrl) => ListTile(
         contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
         onTap: () {},
-        title: Text(title,
+        title: Text(title + ' - ' + number,
             style: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 20,

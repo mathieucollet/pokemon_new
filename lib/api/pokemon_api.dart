@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:logger/logger.dart';
 import 'package:pokemon_new/model/pokemon_model.dart';
 import 'package:pokemon_new/model/set_model.dart';
 
@@ -16,7 +15,7 @@ Future<PokemonModel> getPokemon() async {
 Future<List<PokemonModel>> getPokemons([String setId]) async {
   String getPokemonsUrl = url + 'cards';
   if (setId != null) {
-    getPokemonsUrl += '?q=set.id:' + setId;
+    getPokemonsUrl += '?q=set.id:' + setId + '&orderBy=number';
   }
   var response = await http.get(
     getPokemonsUrl,
@@ -36,7 +35,7 @@ Future<List<PokemonModel>> getPokemons([String setId]) async {
 
 Future<List<SetModel>> getSets() async {
   var response = await http.get(
-    url + 'sets',
+    url + 'sets?orderBy=releaseDate',
     headers: {'X-Api-Key': "e19564a2-37e5-45e6-bd36-a08f25bf3879"},
   );
   var sets = <SetModel>[];
@@ -44,8 +43,6 @@ Future<List<SetModel>> getSets() async {
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonResponse = json.decode(response.body);
     jsonResponse['data'].forEach((set) {
-      var logger = Logger();
-      logger.d(set);
       sets.add(new SetModel.fromJSON(set));
     });
     return sets;
