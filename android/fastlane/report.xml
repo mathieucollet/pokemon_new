@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000440058">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: cd ../../../pokemon_new &amp;&amp; flutter clean" time="1.004483797">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: cd ../../../pokemon_new &amp;&amp; flutter pub get" time="1.926422427">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: cd ../../../pokemon_new &amp;&amp; flutter build apk --release" time="34.514205697">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: firebase_app_distribution" time="10.84201785">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>

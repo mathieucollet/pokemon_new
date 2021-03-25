@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pokemon_new/api/pokemon_api.dart';
 import 'package:pokemon_new/model/pokemon_model.dart';
@@ -6,12 +5,20 @@ import 'package:pokemon_new/model/set_model.dart';
 import 'package:pokemon_new/page/home/widget/pokemon_list_view.dart';
 
 class HomePage extends StatefulWidget {
+  String _setId;
+
+  HomePage();
+  HomePage.set(this._setId);
+
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(_setId);
 }
 
 class _HomePageState extends State<HomePage> {
   PokemonModel _pokemonModel;
+  String _setId;
+
+  _HomePageState(this._setId);
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +29,13 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             icon: Icon(Icons.refresh),
-            onPressed: () async {
-              PokemonModel pokemonModel = await getPokemon();
-              setState(() {
-                _pokemonModel = pokemonModel;
-              });
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                ),
+              );
             },
           ),
         ],
@@ -35,25 +44,11 @@ class _HomePageState extends State<HomePage> {
         child: _drawerBuilder(),
       ),
       body: Center(
-        child: PokemonListView(),
+        child: this._setId != null
+            ? PokemonListView.set(this._setId)
+            : PokemonListView(),
       ),
     );
-  }
-
-  Widget _buildContent() {
-    if (_pokemonModel == null) {
-      return Center(
-        child: Text('Snif snif, no pokemon'),
-      );
-    } else {
-      return Column(
-        children: [
-          Text(_pokemonModel.name),
-          Container(height: 21.0),
-          CachedNetworkImage(imageUrl: _pokemonModel.image),
-        ],
-      );
-    }
   }
 
   Widget _drawerBuilder() {
@@ -69,16 +64,16 @@ class _HomePageState extends State<HomePage> {
             SetModel model = projectSnap.data[index];
             return ListTile(
               title: Text(model.name),
-              leading: CachedNetworkImage(
-                imageUrl: model.logo,
-                width: 40.0,
-              ),
+              // leading: CachedNetworkImage(
+              //   imageUrl: model.logo,
+              //   width: 40.0,
+              // ),
               trailing: Icon(Icons.chevron_right),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PokemonListView.set(model.id),
+                    builder: (context) => HomePage.set(model.id),
                   ),
                 );
               },

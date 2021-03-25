@@ -16,23 +16,20 @@
 default_platform(:android)
 
 platform :android do
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
-  end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :beta do
-    gradle(task: "clean assembleRelease")
-    crashlytics
-  
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
-  end
+  #bundle exec fastlane send_to_testers
+  desc "Sending version to App Distribution"
+  lane :send_to_testers do
 
-  desc "Deploy a new version to the Google Play"
-  lane :deploy do
-    gradle(task: "clean assembleRelease")
-    upload_to_play_store
+    sh("cd ../../../pokemon_new && flutter clean")
+    sh("cd ../../../pokemon_new && flutter pub get")
+    sh("cd ../../../pokemon_new && flutter build apk --release")
+
+    firebase_app_distribution(
+      app: "1:865249701318:android:90bb223e6fbfba08fbd6c7",
+      apk_path: "/home/mayeut/dev/flutter_workspace/pokemon_new/pokemon_new/build/app/outputs/flutter-apk/app-release.apk",
+      release_notes: "New version from Fastlane",
+      testers: "mayeut@gmail.com,gbalas.sup@gmail.com"
+    )
   end
 end
