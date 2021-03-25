@@ -20,8 +20,8 @@ class SetModel {
     this.total = json['total'];
     this.ptcgoCode = json['ptcgoCode'];
     this.releaseDate = json['releaseDate'];
-    this.symbol = json['symbol'];
-    this.logo = json['logo'];
+    this.symbol = json['images']['symbol'];
+    this.logo = json['images']['logo'];
   }
 
   @override

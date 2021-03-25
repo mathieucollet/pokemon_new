@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pokemon_new/api/pokemon_api.dart';
 import 'package:pokemon_new/model/pokemon_model.dart';
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         title: Text('Pokemon TCG App'),
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh),
+            icon: Icon(Icons.home),
             onPressed: () {
               Navigator.push(
                 context,
@@ -64,10 +65,10 @@ class _HomePageState extends State<HomePage> {
             SetModel model = projectSnap.data[index];
             return ListTile(
               title: Text(model.name),
-              // leading: CachedNetworkImage(
-              //   imageUrl: model.logo,
-              //   width: 40.0,
-              // ),
+              leading: CachedNetworkImage(
+                imageUrl: model.logo,
+                width: 40.0,
+              ),
               trailing: Icon(Icons.chevron_right),
               onTap: () {
                 Navigator.push(

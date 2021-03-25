@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 import 'package:pokemon_new/model/pokemon_model.dart';
 import 'package:pokemon_new/model/set_model.dart';
 
@@ -43,15 +44,10 @@ Future<List<SetModel>> getSets() async {
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonResponse = json.decode(response.body);
     jsonResponse['data'].forEach((set) {
+      var logger = Logger();
+      logger.d(set);
       sets.add(new SetModel.fromJSON(set));
     });
-    // if (true) {
-    //   sets = [
-    //     SetModel('1', 'name', 'series', 1, 1, 'ptcgoCode', 'releaseDate',
-    //         'symbol', 'logo'),
-    //     SetModel('2', 'name', 'series', 1, 1, 'ptcgoCode', 'releaseDate',
-    //         'symbol', 'logo')
-    //   ];
     return sets;
   } else {
     throw Exception('Failed to load sets from API');
