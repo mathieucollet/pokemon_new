@@ -5,27 +5,27 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000281448">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.00047956">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: cd ../../../pokemon_new &amp;&amp; flutter clean" time="0.857913948">
+      <testcase classname="fastlane.lanes" name="1: cd ../../../pokemon_new &amp;&amp; flutter clean" time="0.868073445">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: cd ../../../pokemon_new &amp;&amp; flutter pub get" time="1.652263433">
+      <testcase classname="fastlane.lanes" name="2: cd ../../../pokemon_new &amp;&amp; flutter pub get" time="1.628530583">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: cd ../../../pokemon_new &amp;&amp; flutter build apk --release" time="35.261285747">
+      <testcase classname="fastlane.lanes" name="3: cd ../../../pokemon_new &amp;&amp; flutter build apk --release" time="38.958890222">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: firebase_app_distribution" time="9.640991369">
+      <testcase classname="fastlane.lanes" name="4: firebase_app_distribution" time="10.209883368">
         
       </testcase>
     

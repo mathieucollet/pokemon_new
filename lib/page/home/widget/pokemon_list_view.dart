@@ -2,23 +2,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pokemon_new/api/pokemon_api.dart';
 import 'package:pokemon_new/model/pokemon_model.dart';
+import 'package:pokemon_new/page/pokemon/pokemon_page.dart';
+import 'package:pokemon_new/style/colors.dart';
 
 class PokemonListView extends StatelessWidget {
-  String _setId;
+  String setId;
 
-  PokemonListView();
-
-  PokemonListView.set(this._setId);
+  PokemonListView({this.setId});
 
   @override
   Widget build(BuildContext context) {
-    Future<List> list = getSets();
     return FutureBuilder<List<PokemonModel>>(
-      future: _setId != null ? getPokemons(_setId) : getPokemons(),
+      future: setId != null ? getPokemons(setId: setId) : getPokemons(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<PokemonModel> data = snapshot.data;
-          return _pokemonListView(data);
+          return _pokemonGridView(data);
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
@@ -27,27 +26,36 @@ class PokemonListView extends StatelessWidget {
     );
   }
 
-  ListView _pokemonListView(data) {
-    return ListView.builder(
-        shrinkWrap: true,
-        itemCount: data.length,
-        itemBuilder: (context, index) {
-          return _tile(
-              data[index].name, data[index].number, data[index].smallImage);
-        });
+  GridView _pokemonGridView(data) {
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        mainAxisSpacing: 8,
+        maxCrossAxisExtent: 200,
+        mainAxisExtent: 250,
+      ),
+      itemCount: data.length,
+      itemBuilder: (BuildContext context, int index) {
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PokemonPage.set(
+                    cardId: data[index].id, set: data[index].set),
+              ),
+            );
+          },
+          child: Container(
+            alignment: Alignment.center,
+            child: CachedNetworkImage(
+              imageUrl: data[index].smallImage,
+              placeholder: (context, url) => CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation(red),
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
-
-  ListTile _tile(String title, String number, String imageUrl) => ListTile(
-        contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-        onTap: () {},
-        title: Text(title + ' - ' + number,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 20,
-            )),
-        leading: CachedNetworkImage(
-          imageUrl: imageUrl,
-          width: 40.0,
-        ),
-      );
 }
