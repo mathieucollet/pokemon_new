@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "865249701318",
+    "project_id": "pokenouille-486e1",
+    "storage_bucket": "pokenouille-486e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865249701318:android:90bb223e6fbfba08fbd6c7",
+        "android_client_info": {
+          "package_name": "fr.mds.pokemon_new"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865249701318-0fe9d9d3h7eo00n2pd2ch2qnh7k61ut8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIVli2xvrIi8flfb-hF2BUdXvYJXRdXug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865249701318-0fe9d9d3h7eo00n2pd2ch2qnh7k61ut8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
