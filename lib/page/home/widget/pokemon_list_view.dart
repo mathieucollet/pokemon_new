@@ -41,7 +41,9 @@ class PokemonListView extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => PokemonPage.set(
-                    cardId: data[index].id, set: data[index].set),
+                  cardId: data[index].id,
+                  set: setId != null ? data[index].set : null,
+                ),
               ),
             );
           },

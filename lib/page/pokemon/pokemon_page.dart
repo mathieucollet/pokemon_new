@@ -36,7 +36,11 @@ class _PokemonPageState extends State<PokemonPage> {
         ),
       ),
     );
-    return MyScaffold(body: body, goBackToSet: this.widget.set);
+    return MyScaffold(
+      body: body,
+      goBackToSet: this.widget.set,
+      goBackToMain: this.widget.set == null,
+    );
   }
 
   Card _pokemonCard(PokemonModel pokemon) {

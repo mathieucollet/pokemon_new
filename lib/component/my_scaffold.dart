@@ -9,8 +9,9 @@ class MyScaffold extends StatefulWidget {
   SetModel set;
   var body;
   SetModel goBackToSet;
+  bool goBackToMain;
 
-  MyScaffold({this.body, this.goBackToSet, this.set});
+  MyScaffold({this.body, this.goBackToSet, this.set, this.goBackToMain});
   @override
   _MyScaffoldState createState() => _MyScaffoldState();
 }
@@ -20,8 +21,10 @@ class _MyScaffoldState extends State<MyScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: white,
-      appBar:
-          MyAppBar(goBackToSet: this.widget.goBackToSet, set: this.widget.set),
+      appBar: MyAppBar(
+          goBackToSet: this.widget.goBackToSet,
+          goBackToMain: this.widget.goBackToMain,
+          set: this.widget.set),
       drawer: Drawer(child: MyDrawer()),
       body: this.widget.body,
     );

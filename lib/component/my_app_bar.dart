@@ -7,7 +7,8 @@ import 'package:pokemon_new/style/colors.dart';
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   SetModel set;
   SetModel goBackToSet;
-  MyAppBar({Key key, this.goBackToSet, this.set})
+  bool goBackToMain;
+  MyAppBar({Key key, this.goBackToSet, this.set, this.goBackToMain})
       : preferredSize = Size.fromHeight(kToolbarHeight),
         super(key: key);
 
@@ -25,41 +26,50 @@ class _MyAppBarState extends State<MyAppBar> {
       backgroundColor: grey,
       title: Row(
         children: [
-          Text(
-            this.widget.set != null ? this.widget.set.name : 'All cards',
-            style: TextStyle(
-              color: red,
+          Container(
+            width: MediaQuery.of(context).size.width * 0.5,
+            child: Text(
+              this.widget.set != null ? this.widget.set.name : 'All cards',
+              style: TextStyle(
+                color: red,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           Spacer(),
           if (this.widget.set != null)
             CachedNetworkImage(
               imageUrl: this.widget.set.symbol,
-              width: 30.0,
+              width: 40.0,
             )
         ],
       ),
       actions: [
         IconButton(
           icon: Icon(
-            this.widget.goBackToSet != null ? Icons.arrow_back : Icons.home,
+            (this.widget.goBackToSet != null ||
+                    this.widget.goBackToMain == true)
+                ? Icons.arrow_back
+                : Icons.home,
             color: white,
           ),
           onPressed: () {
-            this.widget.goBackToSet != null
-                ? Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          HomePage(set: this.widget.goBackToSet),
-                    ),
-                  )
-                : Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomePage(),
-                    ),
-                  );
+            if (this.widget.goBackToSet != null &&
+                this.widget.goBackToMain == false) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(set: this.widget.goBackToSet),
+                ),
+              );
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                ),
+              );
+            }
           },
         ),
       ],
