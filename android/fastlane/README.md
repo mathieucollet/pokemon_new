@@ -20,7 +20,12 @@ or alternatively using `brew install fastlane`
 ```
 fastlane android send_to_testers
 ```
-Sending version to App Distribution
+Sending version to Guillaume
+### android send_to_me
+```
+fastlane android send_to_me
+```
+Sending version to me
 
 ----
 
