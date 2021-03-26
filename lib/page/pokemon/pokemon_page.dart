@@ -27,7 +27,10 @@ class _PokemonPageState extends State<PokemonPage> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               PokemonModel pokemon = snapshot.data;
-              return _pokemonCard(pokemon);
+              return Container(
+                // height: ,
+                child: Wrap(children: <Widget>[_pokemonCard(pokemon)]),
+              );
             } else if (snapshot.hasError) {
               return Text("${snapshot.error}");
             }
@@ -45,19 +48,29 @@ class _PokemonPageState extends State<PokemonPage> {
 
   Card _pokemonCard(PokemonModel pokemon) {
     return Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         clipBehavior: Clip.antiAlias,
         child: Column(
           children: [
             ListTile(
-              leading: CachedNetworkImage(
-                imageUrl: pokemon.set.symbol,
-                width: 40.0,
-              ),
-              title: Text(
-                pokemon.name,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+              leading: SizedBox(
+                width: 48,
+                height: 48,
+                child: CachedNetworkImage(
+                  imageUrl: pokemon.set.symbol,
                 ),
+              ),
+              title: Row(
+                children: [
+                  Text(
+                    pokemon.name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Spacer(),
+                  Text(pokemon.number + ' / ' + pokemon.set.total.toString())
+                ],
               ),
               subtitle: Text(
                 pokemon.types.join(', '),
