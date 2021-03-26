@@ -29,7 +29,7 @@ class _MyAppBarState extends State<MyAppBar> {
           Container(
             width: MediaQuery.of(context).size.width * 0.5,
             child: Text(
-              this.widget.set != null ? this.widget.set.name : 'All cards',
+              this.widget.set != null ? this.widget.set.name : 'Pokemon TCG',
               style: TextStyle(
                 color: red,
               ),
